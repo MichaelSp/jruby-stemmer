@@ -3,12 +3,11 @@ require "jruby-stemmer/version"
 # Mixes in String#stem using java implementation
 module JRuby
   module Stemmer
-    require "jruby"
-    # include_package 'org.tartarus.martin.porter_stemmer'
+    require 'java'
     require_relative "java-stemmer"
 
     def self.stem string
-      stemmer = Java::OrgTartarusMartinPorter_Stemmer::Stemmer.new
+      stemmer = org.tartarus.martin.porter_stemmer::Stemmer.new
       java_string = string.to_java_string
       stemmer.add java_string.toCharArray, java_string.length
       stemmer.stem
